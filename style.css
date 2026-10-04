@@ -1,0 +1,151 @@
+/* --- rida-denah-style.css --- */
+#rida-denah-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: sans-serif;
+}
+
+#rida-denah-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden; 
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+#rida-denah-bg {
+    width: 100%;
+    display: block; 
+    height: auto;
+}
+
+#rida-denah-hotspot-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.rida-denah-hotspot {
+    position: absolute;
+    /* Outline merah semi-transparan untuk mempermudah dev.
+       Bisa diubah border dan background ke transparan saat rilis. */
+    border: 2px solid rgba(255, 0, 0, 0.4); 
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    background: rgba(255, 0, 0, 0.15); 
+}
+
+.rida-denah-hotspot:hover {
+    background: rgba(255, 200, 0, 0.3);
+    border-color: rgba(255, 200, 0, 0.8);
+}
+
+.rida-denah-hotspot.rida-denah-active {
+    background: rgba(255, 200, 0, 0.4);
+    border-color: rgba(255, 200, 0, 1);
+}
+
+#rida-denah-character {
+    position: absolute;
+    top: 85%; /* Titik mulai di luar/bawah */
+    left: 50%;
+    width: 5%; 
+    min-width: 40px; 
+    height: auto;
+    z-index: 20;
+    transition: top 1s cubic-bezier(0.4, 0, 0.2, 1), left 1s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom center;
+    /* Center horizontal terhadap koordinat left */
+    transform: translateX(-50%);
+}
+
+/* Animasi berjalan disesuaikan dengan transform translateX */
+@keyframes rida-denah-walking {
+    0%, 100% { transform: translateX(-50%) translateY(0) scaleX(1); }
+    25%       { transform: translateX(-50%) translateY(-8px) scaleX(1); }
+    75%       { transform: translateX(-50%) translateY(-8px) scaleX(-1); }
+}
+
+#rida-denah-character.rida-denah-moving {
+    animation: rida-denah-walking 0.35s ease infinite;
+}
+
+/* Animasi arrive juga disesuaikan */
+@keyframes rida-denah-arrive {
+    0%   { transform: translateX(-50%) scale(0.9) translateY(4px); }
+    50%  { transform: translateX(-50%) scale(1.05) translateY(-4px); }
+    100% { transform: translateX(-50%) scale(1) translateY(0); }
+}
+
+#rida-denah-character.rida-denah-arrived {
+    animation: rida-denah-arrive 0.4s ease forwards;
+}
+
+/* --- Action Popup Styling --- */
+#rida-denah-action-popup {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    z-index: 30;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, top 0.3s ease, visibility 0.3s;
+    /* Posisikan popup tepat di atas tengah karakter */
+    transform: translate(-50%, -100%);
+    top: 0; left: 0;
+    width: max-content;
+    min-width: 160px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+}
+
+#rida-denah-action-popup.rida-denah-show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.rida-denah-popup-header {
+    background: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.rida-denah-popup-body {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #fafafa;
+}
+
+.rida-denah-popup-btn {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.2s;
+    color: #333;
+    font-family: inherit;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.rida-denah-popup-btn:hover {
+    background: #f0f0f0;
+    border-color: #bbb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+}
