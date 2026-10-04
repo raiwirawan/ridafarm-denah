@@ -110,11 +110,22 @@ function handleArrival(top, left, data) {
         popupBody.appendChild(btn);
     });
 
-    // Posisikan popup di atas karakter
+    // Posisikan popup
     let topVal = parseFloat(top);
-    // Beri offset negatif sedikit ke atas kepala agar tidak menutupi karakter
-    popup.style.top = (topVal - 6) + '%'; 
-    popup.style.left = left;
+    let leftVal = parseFloat(left);
+    
+    // Jika karakter terlalu ke atas (misal di area sungai, top < 25%), 
+    // tampilkan popup di SAMPING KANAN karakter agar tidak menutupi fitur di bawahnya.
+    if (topVal < 25) {
+        popup.style.top = topVal + '%'; // Sejajar vertikal dengan karakter
+        popup.style.left = (leftVal + 4) + '%'; // Geser ke kanan karakter
+        popup.style.transform = 'translate(0, -50%)'; // Titik jangkar popup di kiri-tengah
+    } else {
+        // Default: popup di ATAS karakter
+        popup.style.top = (topVal - 6) + '%'; 
+        popup.style.left = leftVal + '%';
+        popup.style.transform = 'translate(-50%, -100%)'; // Titik jangkar popup di bawah-tengah
+    }
     
     // Tampilkan popup
     popup.classList.add('rida-denah-show');

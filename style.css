@@ -53,8 +53,8 @@
 
 #rida-denah-character {
     position: absolute;
-    top: 85%; /* Titik mulai di luar/bawah */
-    left: 50%;
+    top: 88%; /* Titik mulai di pintu masuk (kanan bawah) */
+    left: 88%;
     width: 5%; 
     min-width: 40px; 
     height: auto;
@@ -65,15 +65,17 @@
     transform: translateX(-50%);
 }
 
-/* Animasi berjalan disesuaikan dengan transform translateX */
+/* Animasi berjalan: efek bobbing (memantul kecil) dan sedikit bergoyang ke kiri-kanan */
 @keyframes rida-denah-walking {
-    0%, 100% { transform: translateX(-50%) translateY(0) scaleX(1); }
-    25%       { transform: translateX(-50%) translateY(-8px) scaleX(1); }
-    75%       { transform: translateX(-50%) translateY(-8px) scaleX(-1); }
+    0%   { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    25%  { transform: translateX(-50%) translateY(-6px) rotate(4deg); }
+    50%  { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    75%  { transform: translateX(-50%) translateY(-6px) rotate(-4deg); }
+    100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
 }
 
 #rida-denah-character.rida-denah-moving {
-    animation: rida-denah-walking 0.35s ease infinite;
+    animation: rida-denah-walking 0.45s ease-in-out infinite;
 }
 
 /* Animasi arrive juga disesuaikan */
